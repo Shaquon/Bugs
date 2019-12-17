@@ -1,11 +1,8 @@
-from django.db import models
-from django.utils import timezone
-from django.contrib.auth.models import User
-
-
-class Ticket(models.Model):
+from django import forms
+from Bugs.models import Ticket
+"""
     Title = models.CharField(max_length=50)
-    Time = models.DateTimeField(default=timezone.now)
+    Time = models.DateTimeField()
     Description = models.CharField(max_length=50)
     Name = models.ForeignKey(User, on_delete=models.CASCADE, related_name='name')
 
@@ -28,6 +25,20 @@ class Ticket(models.Model):
         )
     assigned = models.ForeignKey(User, on_delete=models.CASCADE, related_name='assigned', blank=True, null=True)
     completed = models.ForeignKey(User, on_delete=models.CASCADE, related_name='completed', blank=True, null=True)
+ """
 
-    def __str__(self):
-        return "{}, {}".format(self.Title, self.Name)
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=50)
+    password = forms.CharField(widget=forms.PasswordInput)
+
+
+class NewTicket(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = [
+            'Title',
+            'Description',
+            'Status',
+            'assigned'
+        ]

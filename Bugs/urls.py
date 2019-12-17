@@ -15,11 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from django.conf import settings
+from django.conf.urls.static import static
+from Bugs import views
 from Bugs.models import Ticket
 
-admin.site.register(Ticket)
+# admin.site.register(Ticket)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.login_view, name='login'),
+    path('home/', views.index, name='homepage'),
+    path('user/<int:id>/', views.user_view, name='user'),
+    path('addticket/', views.add_ticket_view, name="addticket"),
+    path('ticket/<int:id>/', views.ticket_detail_view, name='ticket'),
+    path('edit/<int:id>/', views.edit_ticket_view, name='edit'),
+    path('logout/', views.logout_view, name='logout')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
