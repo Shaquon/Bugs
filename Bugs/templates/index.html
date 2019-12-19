@@ -1,22 +1,30 @@
-<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shaquon's Bug Trackers</title>
     <link rel='stylesheet' href='/static/style.css'>
-
-    <h1 class="titles">Bug Tracker!</h1>
-
-    <nav id="navbar">
+</head>
+<body>
+    <div id="nav">
+        <h1>Bug Tracker!</h1>
         <ul>
-        <a href="/addticket/">ADD A TICKET</a>
+        <a href="/addticket/">Add A Ticket</a>
         
             {% if not user.is_authenticated %}
-                <a href="/">LOGIN</a>
+                <a href="/">Login</a>
             {% elif user.is_authenticated %}
-                <a href="/logout/">LOGOUT</a>
+                <a href="/logout/">Logout</a>
             {% endif %}
         </ul>
-    </nav>
+    </div>
 
+    <div>
+    <div style="broder: 1px solid black">
     {% for tickets in new %}
-    <div style="border:1px solid black">
+    
         <h2><a href="/ticket/{{tickets.id}}">{{ tickets.Title }}</a></h2>
         <p>{{ tickets.Description }}</p>
         <p>Status: New</p>
@@ -29,9 +37,8 @@
 
         <p>Created by: <a href="/user/{{tickets.name.id}}">{{ tickets.name }}</a>
         <p><a href="/edit/{{tickets.id}}">EDIT</a></p>
-    </div>
     {% endfor %}
-
+</div>
     {% for tickets in in_progress %}
         <h2><a href="/ticket/{{tickets.id}}">{{ tickets.Title }}</a></h2>
         <p>{{ tickets.Description }}</p>
@@ -60,5 +67,5 @@
         <p><a href="/edit/{{tickets.id}}">EDIT</a></p>
 
     {% endfor %}
-
+</div>
 </body> 

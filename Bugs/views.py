@@ -56,7 +56,7 @@ def index(request):
 
 
 def login_view(request):
-    html = 'generic_form.html'
+    html = 'login_form.html'
 
     if request.method == "POST":
         form = LoginForm(request.POST)
